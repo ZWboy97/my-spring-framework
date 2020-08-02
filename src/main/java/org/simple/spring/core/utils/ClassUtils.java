@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.lang.reflect.Constructor;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,6 +20,7 @@ public class ClassUtils {
 
     /**
      * 基于package，获取该package下所有的类
+     *
      * @param packageName
      * @return
      */
@@ -111,6 +113,16 @@ public class ClassUtils {
      */
     public static ClassLoader getClassLoader() {
         return Thread.currentThread().getContextClassLoader();
+    }
+
+    public static <T> T newInstance(Class<?> clazz, boolean accessPrivate) {
+        try {
+            Constructor constructor = clazz.getDeclaredConstructor();
+            constructor.setAccessible(accessPrivate);
+            return (T) constructor.newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void main(String[] args) {

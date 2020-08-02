@@ -45,4 +45,15 @@ public static Set<Class<?>> extraPackageClass(String packageName){
 ### 3.实现容器
 - 默认将类名作为key，存储到容器中
 
+- 容器的组成部分
+    - 保存class对象及其实例的载体
+    - 容器的加载
+    - 容器的操作方式
+    
+- 容器的加载
+    - 配置的管理与获取
+    - 获取指定范围内的class对象
+    - 依据配置获取class对象，并存入容器载体中
+    
+
 ### 实现依赖注入DI
