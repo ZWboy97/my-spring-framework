@@ -2,11 +2,13 @@ package com.zwboy.service.serviceImp;
 
 import com.zwboy.service.FirstService;
 import com.zwboy.utils.Result;
+import org.simple.spring.core.annotations.Service;
 
 /**
  * @Author: LiJiaChang
  * @Date: 2020/7/16 15:33
  */
+@Service
 public class FirstServiceImpl implements FirstService {
 
     @Override

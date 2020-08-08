@@ -27,6 +27,7 @@ public class EnumStarvingSingleton {
         private EnumStarvingSingleton instance;
 
         ContainerHolder() {
+            // 在枚举类加载初始化过程中，完成实例化
             instance = new EnumStarvingSingleton();
         }
     }

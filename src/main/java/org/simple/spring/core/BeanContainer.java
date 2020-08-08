@@ -39,6 +39,7 @@ public class BeanContainer {
      * 容器载体，并发性能优秀
      */
     private final Map<Class<?>, Object> beanMap = new ConcurrentHashMap();
+    private boolean loaded = false;
 
     /**
      * 获取IOC容器实例
@@ -49,12 +50,20 @@ public class BeanContainer {
         return ContainerHolder.HOLDER.instance;
     }
 
+    public Map<Class<?>, Object> getBeanMap() {
+        return this.beanMap;
+    }
+
     /**
      * 向IOC容器中加载Bean
      *
      * @param packageName
      */
-    public void loadBeans(String packageName) {
+    public synchronized void loadBeans(String packageName) {
+        // 判断容器是否会被加载过
+        if (isLoaded()) {
+            return;
+        }
         Set<Class<?>> classSet = ClassUtils.extraPackageClass(packageName);
         if (ValidationUtil.isEmpty(classSet)) {
             log.error("no class in package");
@@ -66,7 +75,12 @@ public class BeanContainer {
                 }
             }
         }
+        loaded = true;
 
+    }
+
+    public boolean isLoaded() {
+        return this.loaded;
     }
 
     private enum ContainerHolder {

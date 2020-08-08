@@ -1,4 +1,4 @@
-package com.zwboy.learn;
+package com.learn.parttern.learn;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -65,7 +65,7 @@ public class ReflectLearn {
         // 获取到的Class 对象都是同一个class，即JVM加载到内存中的唯一一格class
 
         // 反射获取类的构造方法
-        Class targetClass = Class.forName("com.zwboy.learn.ReflectLearn");
+        Class targetClass = Class.forName("com.learn.parttern.learn.ReflectLearn");
         // 获取所有public构造函数
         Constructor<ReflectLearn> [] publicConstructors = targetClass.getConstructors(); // 获取所有public构造方法
         for (Constructor constructor :

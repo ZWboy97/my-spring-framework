@@ -67,7 +67,6 @@ public class ClassUtils {
                     String absoluteFilePath = file.getAbsolutePath();
                     if (absoluteFilePath.endsWith(".class")) {
                         // 如果是class文件，则直接加载
-                        System.out.println(absoluteFilePath);
                         addToClassSet(absoluteFilePath);
                     }
                 }

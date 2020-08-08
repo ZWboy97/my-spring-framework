@@ -2,6 +2,7 @@ package com.zwboy.controller;
 
 import com.zwboy.service.FirstService;
 import com.zwboy.utils.Result;
+import org.simple.spring.core.annotations.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Author: LiJiaChang
  * @Date: 2020/7/16 15:34
  */
+@Controller
 public class FirstController {
 
     FirstService firstService;
