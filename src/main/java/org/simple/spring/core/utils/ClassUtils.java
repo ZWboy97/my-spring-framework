@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.File;
 import java.io.FileFilter;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
@@ -120,6 +121,15 @@ public class ClassUtils {
             constructor.setAccessible(accessPrivate);
             return (T) constructor.newInstance();
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void setField(Object target, Field field,Object value,boolean accessible){
+        field.setAccessible(accessible);
+        try {
+            field.set(target,value);
+        }catch (IllegalAccessException e){
             throw new RuntimeException(e);
         }
     }

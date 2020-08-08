@@ -12,4 +12,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface Autowired {
+    // 用于指定更具体的实现类
+    String value() default "";
 }

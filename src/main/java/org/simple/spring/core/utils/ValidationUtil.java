@@ -14,7 +14,11 @@ public class ValidationUtil {
     }
 
     public static boolean isEmpty(String obj) {
-        return obj == null && "".equals(obj);
+        return obj == null || "".equals(obj);
+    }
+
+    public static <T> boolean isEmpty(T[] objs) {
+        return objs.length == 0;
     }
 
 }
