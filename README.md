@@ -54,6 +54,20 @@ public static Set<Class<?>> extraPackageClass(String packageName){
     - 配置的管理与获取
     - 获取指定范围内的class对象
     - 依据配置获取class对象，并存入容器载体中
+
+- 容器的增删改查
+    
+- Spring框架的多种作用域
+    - singleton
+    - prototype
+    - request
+    - session
+    - globalsession
     
 
 ### 实现依赖注入DI
+被加载到Bean容器中的Bean虽然被初始化了，但其某些字段依然还没有被实例化，需要通过依赖注入DI
+的方式来为这些字段赋值。
+- 实现思路
+    - 定义标记注解，标记那些需要注入的成员变量
+    - 基于注解标记，创建实例，并注入到对象中

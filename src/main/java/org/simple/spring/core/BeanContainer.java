@@ -11,10 +11,7 @@ import org.simple.spring.core.utils.ClassUtils;
 import org.simple.spring.core.utils.ValidationUtil;
 
 import java.lang.annotation.Annotation;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -76,8 +73,84 @@ public class BeanContainer {
             }
         }
         loaded = true;
-
     }
+
+    /**
+     * 向Bean容器中添加一个Bean
+     *
+     * @param clazz
+     * @param bean
+     */
+    public Object addBean(Class<?> clazz, Object bean) {
+        return this.beanMap.put(clazz, bean);
+    }
+
+    /**
+     * 从Bean容器中移除一个Bean
+     *
+     * @param clazz
+     */
+    public Object removeBean(Class<?> clazz) {
+        return this.beanMap.remove(clazz);
+    }
+
+    /**
+     * 从Bean容器中获取一个Bean
+     *
+     * @param clazz
+     * @return
+     */
+    public Object getBean(Class<?> clazz) {
+        return this.beanMap.get(clazz);
+    }
+
+    public Set<Class<?>> getClasses() {
+        return this.beanMap.keySet();
+    }
+
+    public Set<Object> getBeans() {
+        return (HashSet<Object>) this.beanMap.values();
+    }
+
+    /**
+     * 基于指定注解，获取标注了这些注解的class对象
+     * @param annotation
+     * @return
+     */
+    public Set<Class<?>> getClassByAnnotation(Class<? extends Annotation> annotation) {
+        // 获取所有的class对象
+        Set<Class<?>> keySet = getClasses();
+        if (ValidationUtil.isEmpty(keySet)) {
+            return null;
+        }
+        // 筛选出指定注解标记的
+        Set<Class<?>> classSet = new HashSet<>();
+        for (Class<?> clazz : keySet) {
+            // isAnnotationPresent 判断该类是否有指定注解
+            if (clazz.isAnnotationPresent(annotation)) {
+                classSet.add(clazz);
+            }
+        }
+        return classSet.size() > 0 ? classSet : null;
+    }
+
+    public Set<Class<?>> getClassBySuper(Class<?> superClass) {
+        // 获取所有的class对象
+        Set<Class<?>> keySet = getClasses();
+        if (ValidationUtil.isEmpty(keySet)) {
+            return null;
+        }
+        // 筛选出指定注解标记的
+        Set<Class<?>> classSet = new HashSet<>();
+        for (Class<?> clazz : keySet) {
+            // isAssignableFrom 判断clazz是否是superClass的子类或子接口
+            if (superClass.isAssignableFrom(clazz) && !clazz.equals(superClass)) {
+                classSet.add(clazz);
+            }
+        }
+        return classSet.size() > 0 ? classSet : null;
+    }
+
 
     public boolean isLoaded() {
         return this.loaded;
